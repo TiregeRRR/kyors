@@ -1,4 +1,5 @@
 use std::fs;
+use std::os::unix::fs::MetadataExt;
 use std::path::PathBuf;
 
 use crate::fileapi::explorer;
@@ -14,8 +15,12 @@ impl LocalFiles {
 
         let mut res: Vec<FileRes> = Vec::new();
 
-        res.extend(res_files.map(|file| FileRes {
-            name: file.unwrap().file_name().into_string().unwrap(),
+        res.extend(res_files.map(|file| {
+            let f = file.unwrap();
+            FileRes {
+                name: f.file_name().into_string().unwrap(),
+                size: f.metadata().unwrap().size(),
+            }
         }));
 
         Ok(res)

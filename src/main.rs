@@ -7,10 +7,10 @@ pub mod local_files;
 
 fn main() {
     let mut l = LocalFiles::default();
-    print_dir(&mut l);
-    print_dir(&mut l);
+    print_dir(&mut l, "..");
+    print_dir(&mut l, "kyors");
 }
 
-fn print_dir(d: &mut dyn Explorer) {
-    println!("{:?}", d.open(String::from("..")));
+fn print_dir(d: &mut dyn Explorer, s: &str) {
+    println!("{:?}", d.open(String::from(s)));
 }
