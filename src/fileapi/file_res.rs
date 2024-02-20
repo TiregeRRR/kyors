@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub struct FileRes {
-    name: String,
+    pub name: String,
 }
