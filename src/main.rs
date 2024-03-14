@@ -6,11 +6,10 @@ pub mod fileapi;
 pub mod local_files;
 
 fn main() {
-    let mut l = LocalFiles::default();
-    print_dir(&mut l, "..");
-    print_dir(&mut l, "kyors");
-}
-
-fn print_dir(d: &mut dyn Explorer, s: &str) {
-    println!("{:?}", d.open(String::from(s)));
+    let l = LocalFiles::default();
+    let mut r = LocalFiles::default();
+    r.open(String::from("src")).unwrap();
+    let (file_name, reader) = l.copy(String::from("Cargo.toml")).unwrap();
+    r.paste(file_name, reader).unwrap();
+    l.delete(String::from("somedir")).unwrap();
 }
